@@ -1,0 +1,290 @@
+@extends('layouts.app')
+
+@section('content')
+
+<div class="container py-4">
+
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Ajouter un employé / إضافة موظف</h4>
+        </div>
+
+        <div class="card-body">
+
+            <form method="POST" action="{{ route('employees.store') }}" enctype="multipart/form-data">
+                @csrf
+
+                {{-- PHOTO --}}
+                <div class="mb-3">
+                    <label>Photo</label>
+                    <input type="file" name="photo" class="form-control">
+                </div>
+
+                {{-- IDENTITE --}}
+                <div class="card mb-3">
+                    <div class="card-header">Identité / الهوية</div>
+                    <div class="card-body">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label>Nom (FR)</label>
+                                <input name="last_name_fr" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="text-end w-100">اللقب</label>
+                                <input name="last_name_ar" class="form-control text-end" dir="rtl">
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <label>Prénom (FR)</label>
+                                <input name="first_name_fr" class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <label class="text-end w-100">الاسم</label>
+                                <input name="first_name_ar" class="form-control text-end" dir="rtl">
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <label>N° National</label>
+                                <input name="national_id" class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <label>Date naissance</label>
+                                <input type="date" name="birth_date" class="form-control">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- CONTACT --}}
+                <div class="card mb-3">
+                    <div class="card-header">Contact</div>
+                    <div class="card-body">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <label>Adresse FR</label>
+                                <input name="address_fr" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="text-end w-100">العنوان</label>
+                                <input name="address_ar" class="form-control text-end" dir="rtl">
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <label>Téléphone</label>
+                                <input name="phone" class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <label>Email</label>
+                                <input name="email" class="form-control">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- ETAT CIVIL --}}
+                <div class="card mb-3">
+                    <div class="card-header">Etat civil / الحالة العائلية</div>
+                    <div class="card-body">
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label>Situation</label>
+                                <select name="marital_status" class="form-select">
+                                    <option value="single">Célibataire</option>
+                                    <option value="married">Marié</option>
+                                    <option value="divorced">Divorcé</option>
+                                    <option value="widowed">Veuf</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Enfants</label>
+                                <select id="hasChildren" class="form-select">
+                                    <option value="0">Non</option>
+                                    <option value="1">Oui</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4" id="childrenBox" style="display:none">
+                                <label>Nombre enfants</label>
+                                <input type="number" name="children_count" class="form-control">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- SANTE --}}
+                <div class="card mb-3">
+                    <div class="card-header">Santé / الصحة</div>
+                    <div class="card-body">
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label>Handicap</label>
+                                <select name="has_disability" id="disability" class="form-select">
+                                    <option value="0">Non</option>
+                                    <option value="1">Oui</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label>Maladie</label>
+                                <select name="has_disease" id="disease" class="form-select">
+                                    <option value="0">Non</option>
+                                    <option value="1">Oui</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-2" id="diseaseBox" style="display:none">
+
+                            <div class="col-md-6">
+                                <textarea name="disease_details_fr" class="form-control" placeholder="Maladie FR"></textarea>
+                            </div>
+
+                            <div class="col-md-6">
+                                <textarea name="disease_details_ar" class="form-control text-end" dir="rtl" placeholder="المرض"></textarea>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- FORMATION --}}
+                <div class="card mb-3">
+                    <div class="card-header">Formation</div>
+                    <div class="card-body row">
+
+                        <div class="col-md-6">
+                            <label>Diplôme FR</label>
+                            <input name="diploma_fr" class="form-control">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="text-end w-100">الشهادة</label>
+                            <input name="diploma_ar" class="form-control text-end" dir="rtl">
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- POSTE --}}
+                <div class="card mb-3">
+                    <div class="card-header">Poste</div>
+                    <div class="card-body row">
+
+                        <div class="col-md-6">
+                            <label>Grade FR</label>
+                            <input name="rank_fr" class="form-control">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="text-end w-100">الرتبة</label>
+                            <input name="rank_ar" class="form-control text-end" dir="rtl">
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- AFFECTATION --}}
+                <div class="card mb-3">
+                    <div class="card-header">Affectation</div>
+                    <div class="card-body row">
+
+                        <div class="col-md-4">
+                            <input name="direction_fr" class="form-control" placeholder="Direction FR">
+                        </div>
+
+                        <div class="col-md-4">
+                            <input name="service_fr" class="form-control" placeholder="Service FR">
+                        </div>
+
+                        <div class="col-md-4">
+                            <input name="office_fr" class="form-control" placeholder="Bureau FR">
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            <input name="direction_ar" class="form-control text-end" dir="rtl" placeholder="المديرية">
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            <input name="service_ar" class="form-control text-end" dir="rtl" placeholder="المصلحة">
+                        </div>
+
+                        <div class="col-md-4 mt-2">
+                            <input name="office_ar" class="form-control text-end" dir="rtl" placeholder="المكتب">
+                        </div>
+
+                    </div>
+                </div>
+
+                {{-- CONTRAT --}}
+                <div class="card mb-3">
+                    <div class="card-header">Contrat</div>
+                    <div class="card-body">
+
+                        <select name="contract_type" class="form-select">
+                            <option>CDI</option>
+                            <option>CDD</option>
+                            <option>Stage</option>
+                            <option>Vacataire</option>
+                            <option>Contractuel</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                {{-- MILITAIRE --}}
+                <div class="card mb-3">
+                    <div class="card-header">Service militaire</div>
+                    <div class="card-body">
+
+                        <select name="military_service" class="form-select">
+                            <option value="0">Non</option>
+                            <option value="1">Oui</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <button class="btn btn-success w-100">
+                    Enregistrer
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('hasChildren').addEventListener('change', function () {
+    document.getElementById('childrenBox').style.display = this.value == 1 ? 'block' : 'none';
+});
+
+document.getElementById('disease').addEventListener('change', function () {
+    document.getElementById('diseaseBox').style.display = this.value == 1 ? 'flex' : 'none';
+});
+</script>
+
+@endsection
