@@ -20,4 +20,6 @@ Route::middleware([
 
     Route::get('/employees/create',  [EmployeeController::class, 'create']);
     Route::post('/employees',  [EmployeeController::class, 'store'])-> name('employees.store') ;
+    Route::get('/stats',  [EmployeeController::class, 'stats'])->name('employees.stats');
 });
+

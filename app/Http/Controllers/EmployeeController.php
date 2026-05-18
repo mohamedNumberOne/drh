@@ -10,6 +10,13 @@ use App\Http\Requests\EmployeeRequest;
 class EmployeeController extends Controller
 {
 
+    public function stats()
+    {
+        return view(
+            'stats'
+        );
+    }
+
     public function create()
     {
         return view(
