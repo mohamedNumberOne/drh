@@ -20,9 +20,17 @@ class EmployeeController extends Controller
     public function create()
     {
         return view(
-            'employees.create'  
+            'employees.add_employee'  
         );
     }
+
+    public function get_all_employees()
+    {
+        return view(
+            'employees.all'
+        );
+    }
+    
 
     public function store(
         EmployeeRequest $request
