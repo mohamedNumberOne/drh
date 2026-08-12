@@ -15,7 +15,9 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('bs/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
 
 </head>
 
@@ -123,12 +125,13 @@
                 </div>
             </a>
 
-            <div class="nav-item" onclick="navigate('employees')">
-                <div class="nav-icon">👥</div>
-                <span class="nav-label">قائمة الموظفين</span>
-                <span class="nav-badge" id="empCount">12</span>
-            </div>
-
+            <a href="{{ route('employees.get_all_employees') }}">
+                <div class="{{ request()->routeIs('employees.get_all_employees') ? 'nav-item active' : 'nav-item' }}  ">
+                    <div class="nav-icon">👥</div>
+                    <span class="nav-label">قائمة الموظفين</span>
+                    <span class="nav-badge" id="empCount">12</span>
+                </div>
+            </a>
             <div class="nav-item" onclick="navigate('edit')">
                 <div class="nav-icon">✏️</div>
                 <span class="nav-label">تعديل الموظفين</span>
@@ -502,6 +505,7 @@
 
 
     <script src="{{ asset('js/myscript.js') }}"></script>
+    <script src="{{ asset('bs/bootstrap.js') }}"></script>
 
 </body>
 
